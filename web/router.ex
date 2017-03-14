@@ -27,8 +27,9 @@ defmodule Tvthing.Router do
 
     get "/watchlists", WatchlistController, :index
     post "/watchlists", WatchlistController, :create
-    # get "/watchlists/:id/shows", WatchlistController, :show
-    # post "/watchlists/:id/shows", WatchlistController, :add
+    get "/watchlists/:id/shows", WatchlistShowsController, :index
+    post "/watchlists/:id/shows", WatchlistShowsController, :add
+    # post "/watchlists/:id/reorder", WatchlistShowsController, :reorder
     # post "/watchlists/:id/shows/:show_id/snooze", WatchlistController, :snooze
     # post "/watchlists/:id/shows/:show_id/activate", WatchlistController, :activate
     # post "/watchlists/:id/shows/:show_id/archive", WatchlistController, :archive

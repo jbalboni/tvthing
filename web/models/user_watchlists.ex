@@ -13,5 +13,6 @@ defmodule Tvthing.UserWatchlists do
     struct
     |> cast(params, [:watchlist_id, :user_id])
     |> validate_required([:watchlist_id, :user_id])
+    |> unique_constraint(:user_id, name: :user_watchlists_index)
   end
 end

@@ -1,6 +1,7 @@
 defmodule Tvthing.Show do
   use Tvthing.Web, :model
 
+  @derive {Poison.Encoder, only: [:name, :guidebox_id]}
   schema "shows" do
     field :name, :string
     field :guidebox_id, :integer
@@ -16,5 +17,6 @@ defmodule Tvthing.Show do
     struct
     |> cast(params, [:name, :guidebox_id])
     |> validate_required([:name, :guidebox_id])
+    |> unique_constraint(:guidebox_id)
   end
 end
