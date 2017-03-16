@@ -31,8 +31,20 @@ defmodule Tvthing.WatchlistShowsController do
       {:error, changeset} ->
         conn
         |> put_status(400)
-        |> render Tvthing.ErrorView, "changeset.json", errors: changeset.errors
+        |> render(Tvthing.ErrorView, "changeset.json", errors: changeset.errors)
     end
   end
 
+  def snooze(conn, %{"id" => watchlist_id, "show_id" => show_id}) do
+    watchlist_show = Repo.get_by!(WatchlistShow, watchlist_id: watchlist_id, show_id: show_id)
+    changeset = Ecto.Changeset.change watchlist_show, state: 2
+    case Repo.update(changeset) do
+      {:ok, watchlist_show} ->
+        render conn, "add.json", watchlist_show: watchlist_show
+      {:error, changeset} ->
+        conn
+        |> put_status(400)
+        |> render(Tvthing.ErrorView, "changeset.json", errors: changeset.errors)
+    end
+  end
 end

@@ -1,0 +1,7 @@
+{
+  "sourceMaps": true,
+  "plugins": [
+    ["transform-react-jsx", { "pragma": "preact.h" }],
+		"transform-flow-strip-types"
+  ]
+}

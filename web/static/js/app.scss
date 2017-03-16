@@ -1,0 +1,18 @@
+$primary: #009688;
+$background: #f4f4f4;
+$size-6: 16px;
+
+@import "~bulma";
+
+.nav {
+  background: $primary;
+}
+
+a.nav-item {
+  color: white;
+  &:hover {
+    color: white;
+    text-decoration: underline;
+  }
+}
+
