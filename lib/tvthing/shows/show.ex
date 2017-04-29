@@ -1,4 +1,4 @@
-defmodule Tvthing.Show do
+defmodule Tvthing.Shows.Show do
   use Tvthing.Web, :model
 
   @derive {Poison.Encoder, only: [:name, :guidebox_id]}
@@ -6,7 +6,7 @@ defmodule Tvthing.Show do
     field :name, :string
     field :guidebox_id, :integer
 
-    many_to_many :watchlists, Tvthing.Watchlist, join_through: Tvthing.WatchlistShows
+    many_to_many :watchlists, Tvthing.Watchlists.Watchlist, join_through: Tvthing.Watchlists.WatchlistShow
     timestamps()
   end
 

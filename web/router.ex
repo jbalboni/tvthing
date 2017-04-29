@@ -11,6 +11,13 @@ defmodule Tvthing.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug Joken.Plug,
+      verify: &Tvthing.JWTHelpers.verify/0,
+      on_error: &Tvthing.JWTHelpers.error/2
+  end
+
+  pipeline :api_public do
+    plug :accepts, ["json"]
   end
 
   scope "/", Tvthing do
@@ -19,11 +26,14 @@ defmodule Tvthing.Router do
     get "/", PageController, :index
   end
 
-  # Other scopes may use custom stacks.
-  scope "/api", Tvthing do
-    pipe_through :api
+  scope "/api/public", Tvthing do
+    pipe_through :api_public
 
     get "/search", SearchController, :index
+  end
+
+  scope "/api", Tvthing do
+    pipe_through :api
 
     get "/watchlists", WatchlistController, :index
     post "/watchlists", WatchlistController, :create
@@ -31,8 +41,7 @@ defmodule Tvthing.Router do
     post "/watchlists/:id/shows", WatchlistShowsController, :add
     # post "/watchlists/:id/reorder", WatchlistShowsController, :reorder
     post "/watchlists/:id/shows/:show_id/snooze", WatchlistShowsController, :snooze
-    # post "/watchlists/:id/shows/:show_id/activate", WatchlistController, :activate
-    # post "/watchlists/:id/shows/:show_id/archive", WatchlistController, :archive
-    # post "/watchlists/:id/shows/:show_id/restore", WatchlistController, :restore
+    post "/watchlists/:id/shows/:show_id/activate", WatchlistController, :activate
+    post "/watchlists/:id/shows/:show_id/archive", WatchlistController, :archive
   end
 end

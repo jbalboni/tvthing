@@ -1,4 +1,4 @@
-defmodule Tvthing.Watchlist do
+defmodule Tvthing.Watchlists.Watchlist do
   use Tvthing.Web, :model
 
   @derive {Poison.Encoder, only: [:id, :name]}

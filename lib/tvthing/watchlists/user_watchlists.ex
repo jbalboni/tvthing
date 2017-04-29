@@ -1,4 +1,4 @@
-defmodule Tvthing.UserWatchlists do
+defmodule Tvthing.Watchlists.UserWatchlists do
   use Tvthing.Web, :model
 
   @primary_key false

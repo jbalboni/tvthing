@@ -1,5 +1,6 @@
-defmodule Guidebox do
+defmodule Tvthing.Guidebox do
   use HTTPoison.Base
+  defp token, do: Application.get_env(:tvthing, :guidebox_token)
 
     # result = HTTPoison.get! "/v2/search?type=show&field=title&query=#{query}", %{"Authorization" => ""}
   def process_url(url) do
@@ -7,7 +8,7 @@ defmodule Guidebox do
   end
 
   def process_request_headers(headers) do
-    Dict.put headers, :Authorization, "3c18d22a5cab12549ac979ea3ffbf5edd9dadc5a"
+    Dict.put headers, :Authorization, token()
   end
 
   def process_response_body(body) do

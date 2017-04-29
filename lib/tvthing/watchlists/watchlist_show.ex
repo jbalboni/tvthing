@@ -1,11 +1,11 @@
-defmodule Tvthing.WatchlistShows do
+defmodule Tvthing.Watchlists.WatchlistShow do
   use Tvthing.Web, :model
 
   @primary_key false
   @derive {Poison.Encoder, only: [:watchlist_id, :show_id]}
   schema "watchlists_shows" do
-    belongs_to :watchlist, Tvthing.Watchlist
-    belongs_to :show, Tvthing.Show
+    belongs_to :watchlist, Tvthing.Watchlists.Watchlist
+    belongs_to :show, Tvthing.Shows.Show
     field :source, :string
     field :state, :integer
 

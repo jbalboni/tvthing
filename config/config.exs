@@ -7,7 +7,8 @@ use Mix.Config
 
 # General application configuration
 config :tvthing,
-  ecto_repos: [Tvthing.Repo]
+  ecto_repos: [Tvthing.Repo],
+  guidebox_token: System.get_env("GUIDEBOX_TOKEN")
 
 # Configures the endpoint
 config :tvthing, Tvthing.Endpoint,
@@ -21,6 +22,15 @@ config :tvthing, Tvthing.Endpoint,
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
+
+config :tvthing, :auth0,
+  app_baseurl: System.get_env("AUTH0_BASEURL"),
+  app_id: System.get_env("AUTH0_APP_ID"),
+  app_secret: System.get_env("AUTH0_APP_SECRET")
+    |> System.get_env
+    |> Kernel.||("")
+    |> Base.url_decode64
+    |> elem(1)
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

@@ -1,44 +1,34 @@
 defmodule Tvthing.WatchlistShowsController do
   use Tvthing.Web, :controller
-  alias Tvthing.WatchlistShows
-  alias Tvthing.Show
+  alias Tvthing.Watchlists
 
   def index(conn, %{"id" => id}) do
-    get_by_watchlist = from ws in WatchlistShows,
-      join: s in Show, where: s.id == ws.show_id,
-      where: ws.watchlist_id == ^id,
-      select: %{show_id: ws.show_id, name: s.name}
-    shows = Repo.all(get_by_watchlist)
+    shows = Watchlists.get_shows(id)
     render conn, "index.json", shows: shows
   end
 
   def add(conn, %{"id" => id, "guidebox_id" => guidebox_id}) do
-    show_id =
-      case Repo.get_by(Show, guidebox_id: guidebox_id) do
-        %Show{id: show_id} -> 
-          show_id
-        nil -> 
-          %{"title" => title} = Guidebox.get!("shows/#{guidebox_id}").body
-          changeset = Show.changeset(%Show{guidebox_id: guidebox_id, name: title})
-          {:ok, show} = Repo.insert(changeset)
-          show.id
-      end 
-
-    changeset = WatchlistShows.changeset(%WatchlistShows{watchlist_id: String.to_integer(id), show_id: show_id})
-    case Repo.insert(changeset) do
-      {:ok, watchlist_show} ->
-        render conn, "add.json", watchlist_show: watchlist_show
-      {:error, changeset} ->
-        conn
-        |> put_status(400)
-        |> render(Tvthing.ErrorView, "changeset.json", errors: changeset.errors)
-    end
+    Watchlists.add_show(id, guidebox_id)
+      |> handle_error(conn)
   end
 
   def snooze(conn, %{"id" => watchlist_id, "show_id" => show_id}) do
-    watchlist_show = Repo.get_by!(WatchlistShow, watchlist_id: watchlist_id, show_id: show_id)
-    changeset = Ecto.Changeset.change watchlist_show, state: 2
-    case Repo.update(changeset) do
+    Watchlists.snooze_show(watchlist_id, show_id)
+      |> handle_error(conn)
+  end
+
+  def archive(conn, %{"id" => watchlist_id, "show_id" => show_id}) do
+    Watchlists.archive_show(watchlist_id, show_id)
+      |> handle_error(conn)
+  end
+
+  def activate(conn, %{"id" => watchlist_id, "show_id" => show_id}) do
+    Watchlists.activate_show(watchlist_id, show_id)
+      |> handle_error(conn)
+  end
+
+  defp handle_error(result, conn) do
+    case result do
       {:ok, watchlist_show} ->
         render conn, "add.json", watchlist_show: watchlist_show
       {:error, changeset} ->
