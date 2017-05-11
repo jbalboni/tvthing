@@ -2,7 +2,6 @@
   "repository": {},
   "license": "MIT",
   "scripts": {
-    "deploy": "brunch build --production",
     "watch": "webpack --watch-stdin --progress --color",
     "format": "prettier --write --single-quote --jsx-bracket-same-line --parser flow \"web/static/js/**/*.js{x,}\"",
     "lint": "eslint --ext js,jsx web/static/js",
