@@ -12,7 +12,6 @@
     "dotenv": "^4.0.0",
     "eslint-config-airbnb": "^14.1.0",
     "flow-typed": "^2.0.0",
-    "flyd": "^0.2.4",
     "global": "^4.3.1",
     "husky": "^0.13.3",
     "phoenix": "file:deps/phoenix",
@@ -44,8 +43,6 @@
     "node-sass": "^4.5.0",
     "source-map-loader": "^0.2.0",
     "style-loader": "^0.13.2",
-    "ts-loader": "^2.0.1",
-    "typescript": "^2.2.1",
     "webpack": "^2.4.1"
   },
   "name": "tvthing",
