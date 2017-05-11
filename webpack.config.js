@@ -12,6 +12,7 @@ module.exports = {
     path: path.resolve(__dirname, 'priv/static/js')
   },
   devServer: {
+    compress: true,
     contentBase: path.resolve(__dirname, 'priv/static')
   },
   module: {
@@ -45,12 +46,13 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env': {
         AUTH0_APP_ID: JSON.stringify(process.env.AUTH0_APP_ID),
-        AUTH0_BASEURL: JSON.stringify(process.env.AUTH0_BASEURL)
+        AUTH0_BASEURL: JSON.stringify(process.env.AUTH0_BASEURL),
+        NODE_ENV: JSON.stringify(process.env.NODE_ENV)
       }
     })
   ],
   resolve: {
     extensions: ['.jsx', '.js']
   },
-  devtool: 'cheap-module-inline-source-map'
+  devtool: process.env.NODE_ENV === 'production' ? false : 'cheap-module-inline-source-map'
 };
