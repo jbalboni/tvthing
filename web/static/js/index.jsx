@@ -1,7 +1,7 @@
 // @flow
 import preact from 'preact';
-import App from './App';
-import './app.scss';
+import App from './components/App';
+import '../css/app.scss';
 
 preact.render(
   <App

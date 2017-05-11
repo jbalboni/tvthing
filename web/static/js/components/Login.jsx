@@ -1,5 +1,5 @@
 import preact from 'preact';
-import { addUser } from './auth';
+import { addUser } from '../lib/auth';
 
 export default class Login extends preact.Component {
   componentDidMount() {

@@ -1,5 +1,5 @@
 import preact from 'preact';
-import { login } from './auth';
+import { login } from '../lib/auth';
 
 export default function Nav() {
   return (

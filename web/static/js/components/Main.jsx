@@ -1,9 +1,8 @@
 // @flow
 import preact from 'preact';
 
-import { fetchShows } from './actions';
-
-import type { Show } from './App';
+import { fetchShows } from '../lib/actions';
+import type { Show } from '../lib/types';
 
 type Props = {
   isLoggedIn: boolean,

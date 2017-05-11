@@ -1,5 +1,5 @@
 // @flow
-import type { Show } from './App';
+import type { Show } from './types';
 
 export function fetchShows(idToken: string): Promise<Array<Show>> {
   return fetch('/api/shows', {

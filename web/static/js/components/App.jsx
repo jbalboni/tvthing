@@ -2,25 +2,11 @@
 import preact from 'preact';
 import Router, { route } from 'preact-router';
 
-import { getUserInfo } from './auth';
 import Main from './Main';
 import Login from './Login';
 import Nav from './Nav';
 
-type User = {
-  id: number,
-  email: string
-};
-
-type Watchlist = {
-  id: number,
-  name: string
-};
-
-export type Show = {
-  id: number,
-  name: string
-};
+import { getUserInfo } from '../lib/auth';
 
 type Props = {
   accessToken: ?string,
