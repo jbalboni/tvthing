@@ -2,8 +2,9 @@ defmodule Tvthing.WatchlistShowsController do
   use Tvthing.Web, :controller
   alias Tvthing.Watchlists
 
-  def index(conn, %{"id" => id}) do
-    shows = Watchlists.get_shows(id)
+  def index(conn, _) do
+    user = Guardian.Plug.current_resource(conn)
+    shows = Watchlists.get_shows_by_user(user.id)
     render conn, "index.json", shows: shows
   end
 

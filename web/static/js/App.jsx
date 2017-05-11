@@ -1,45 +1,87 @@
 // @flow
 import preact from 'preact';
-import flyd from 'flyd';
+import Router, { route } from 'preact-router';
 
+import { getUserInfo } from './auth';
 import Main from './Main';
+import Login from './Login';
 import Nav from './Nav';
 
-export type Show = { name: string };
-export type State = { shows: Array<Show> };
+type User = {
+  id: number,
+  email: string
+};
 
-const stream = flyd.stream({
-  shows: []
-});
+type Watchlist = {
+  id: number,
+  name: string
+};
+
+export type Show = {
+  id: number,
+  name: string
+};
+
+type Props = {
+  accessToken: ?string,
+  idToken: ?string
+};
 
 export default class App extends preact.Component {
-  state: State;
-  constructor() {
-    super();
-    this.state = stream();
-    flyd.on(newState => this.setState(newState), stream);
+  state: {
+    user: ?User,
+    watchlist: ?Watchlist,
+    accessToken: ?string,
+    idToken: ?string
+  };
+  props: Props;
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      user: null,
+      accessToken: props.accessToken,
+      idToken: props.idToken,
+      watchlist: null
+    };
   }
   componentDidMount() {
-    const promise = fetch('/api/watchlists/1/shows')
-      .then(resp => {
-        if (resp.ok) {
-          return resp.json();
-        }
-
-        return Promise.reject(resp.status);
-      })
-      .then(shows => {
-        return {
-          shows
-        };
+    if (this.state.idToken != null) {
+      getUserInfo(this.state.idToken).then(({ user, watchlist }) => {
+        this.setState({ user, watchlist });
       });
-    stream(promise);
+    }
+  }
+  setUserInfo(
+    {
+      user,
+      watchlist,
+      accessToken,
+      idToken
+    }: {
+      user: User,
+      watchlist: Watchlist,
+      accessToken: string,
+      idToken: string
+    }
+  ) {
+    this.setState({ user, watchlist, accessToken, idToken }, () => route('/'));
   }
   render() {
+    const { user, accessToken, idToken } = this.state;
     return (
       <div>
-        <Nav />
-        <Main shows={this.state.shows} />
+        <Nav accessToken={accessToken} user={user} />
+        <Router>
+          <Main
+            path="/"
+            isLoggedIn={this.state.user !== null}
+            idToken={idToken}
+          />
+          <Login
+            path="/login"
+            setUserInfo={(...args) => this.setUserInfo(...args)}
+          />
+        </Router>
       </div>
     );
   }

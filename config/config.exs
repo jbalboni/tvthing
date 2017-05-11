@@ -32,6 +32,15 @@ config :tvthing, :auth0,
     |> Base.url_decode64
     |> elem(1)
 
+config :guardian, Guardian,
+  allowed_algos: ["HS256"], # optional
+  verify_module: Guardian.JWT,  # optional
+  issuer: System.get_env("AUTH0_BASEURL"),
+  ttl: { 30, :days },
+  allowed_drift: 2000,
+  verify_issuer: false, # optional
+  secret_key: System.get_env("AUTH0_APP_SECRET"),
+  serializer: Tvthing.GuardianSerializer
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env}.exs"

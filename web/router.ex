@@ -11,25 +11,21 @@ defmodule Tvthing.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
-    plug Joken.Plug,
-      verify: &Tvthing.JWTHelpers.verify/0,
-      on_error: &Tvthing.JWTHelpers.error/2
+		plug Guardian.Plug.VerifyHeader, realm: "Bearer"
+		plug Guardian.Plug.EnsureAuthenticated
+		plug Guardian.Plug.LoadResource
+		plug Guardian.Plug.EnsureResource
   end
 
   pipeline :api_public do
     plug :accepts, ["json"]
   end
 
-  scope "/", Tvthing do
-    pipe_through :browser # Use the default browser stack
-
-    get "/", PageController, :index
-  end
-
   scope "/api/public", Tvthing do
     pipe_through :api_public
 
     get "/search", SearchController, :index
+    post "/users", UserController, :create
   end
 
   scope "/api", Tvthing do
@@ -37,11 +33,18 @@ defmodule Tvthing.Router do
 
     get "/watchlists", WatchlistController, :index
     post "/watchlists", WatchlistController, :create
-    get "/watchlists/:id/shows", WatchlistShowsController, :index
-    post "/watchlists/:id/shows", WatchlistShowsController, :add
+    get "/shows", WatchlistShowsController, :index
+    post "/shows", WatchlistShowsController, :add
     # post "/watchlists/:id/reorder", WatchlistShowsController, :reorder
-    post "/watchlists/:id/shows/:show_id/snooze", WatchlistShowsController, :snooze
-    post "/watchlists/:id/shows/:show_id/activate", WatchlistController, :activate
-    post "/watchlists/:id/shows/:show_id/archive", WatchlistController, :archive
+    post "/shows/:show_id/snooze", WatchlistShowsController, :snooze
+    post "/shows/:show_id/activate", WatchlistController, :activate
+    post "/shows/:show_id/archive", WatchlistController, :archive
   end
+
+  scope "/", Tvthing do
+    pipe_through :browser # Use the default browser stack
+
+    get "/*path", PageController, :index
+  end
+
 end

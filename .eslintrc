@@ -7,8 +7,7 @@
     "prettier/flowtype"
   ],
   "plugins": [
-    "flowtype",
-    "prettier"
+    "flowtype"
   ],
 	"parser": "babel-eslint",
 	"parserOptions": {
@@ -24,12 +23,12 @@
     "browser": true
   },
   "rules": {
-    "prettier/prettier": ["error", {"singleQuote": true, "jsxBracketSameLine": true}],
     "no-unused-vars": [0, { "varsIgnorePattern": "^preact$" }],
     "react/react-in-jsx-scope": 0,
     "react/no-unknown-property": ["error", { "ignore": ["class"] }],
     "react/prop-types": 0,
     "react/no-unused-prop-types": 0,
-    "arrow-body-style": 0
+    "arrow-body-style": 0,
+    "import/prefer-default-export": 0
   }
 }

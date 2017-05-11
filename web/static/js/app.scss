@@ -10,9 +10,26 @@ $size-6: 16px;
 
 a.nav-item {
   color: white;
-  &:hover {
+  &:hover, &:active, &:focus {
     color: white;
     text-decoration: underline;
   }
 }
 
+.button.nav-item {
+  color: white;
+  text-decoration: none;
+  height: 100%;
+  border: none;
+  &:hover, &:active, &:focus {
+    border: none;
+    cursor: pointer;
+    color: white;
+    background: transparent;
+    text-decoration: underline;
+  }
+}
+
+.nav-toggle span {
+  background-color: white;
+}

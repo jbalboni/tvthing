@@ -11,6 +11,9 @@ module.exports = {
     filename: 'app.js',
     path: path.resolve(__dirname, 'priv/static/js')
   },
+  devServer: {
+    contentBase: path.resolve(__dirname, 'priv/static')
+  },
   module: {
     rules: [
       {
@@ -22,11 +25,11 @@ module.exports = {
       },
       {
         enforce: 'pre',
-        test: /\.js(x)$/,
+        test: /\.jsx?$/,
         loader: 'source-map-loader'
       },
       {
-        test: /\.js(x)$/,
+        test: /\.jsx?$/,
         exclude: /node_modules/,
         use: [
           {
@@ -38,7 +41,7 @@ module.exports = {
   },
   plugins: [
     new ExtractTextPlugin('../css/[name].css'),
-    new webpack.NoEmitOnErrorsPlugin(),
+    // new webpack.NoEmitOnErrorsPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
         AUTH0_APP_ID: JSON.stringify(process.env.AUTH0_APP_ID),
@@ -49,5 +52,5 @@ module.exports = {
   resolve: {
     extensions: ['.jsx', '.js']
   },
-  devtool: 'cheap-module-eval-source-map'
+  devtool: 'cheap-module-inline-source-map'
 };

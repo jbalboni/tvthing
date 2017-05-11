@@ -17,6 +17,7 @@
     "phoenix": "file:deps/phoenix",
     "phoenix_html": "file:deps/phoenix_html",
     "preact": "^7.2.0",
+    "preact-router": "^2.5.2",
     "prettier": "^0.22.0"
   },
   "devDependencies": {
@@ -36,7 +37,6 @@
     "eslint-plugin-flowtype": "^2.30.3",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^4.0.0",
-    "eslint-plugin-prettier": "^2.0.1",
     "eslint-plugin-react": "^6.10.0",
     "extract-text-webpack-plugin": "^2.1.0",
     "flow-status-webpack-plugin": "^0.1.7",
@@ -45,7 +45,7 @@
     "style-loader": "^0.13.2",
     "ts-loader": "^2.0.1",
     "typescript": "^2.2.1",
-    "webpack": "^2.2.1"
+    "webpack": "^2.4.1"
   },
   "name": "tvthing",
   "version": "1.0.0",

@@ -18,13 +18,13 @@ defmodule Tvthing.JWTHelpers do
   app_metadata must be present in id_token
   """
   def verify do
-    %Joken.Token{}
-    |> with_json_module(Poison)
-    |> with_signer(hs256(config[:app_secret]))
-    |> with_validation("aud", &(&1 == config[:app_id]))
-    |> with_validation("exp", &(&1 > current_time))
-    |> with_validation("iat", &(&1 <= current_time))
-    |> with_validation("iss", &(&1 == config[:app_baseurl]))
+    # %Joken.Token{}
+    # |> with_json_module(Poison)
+    # |> with_signer(hs256(config[:app_secret]))
+    # |> with_validation("aud", &(&1 == config[:app_id]))
+    # |> with_validation("exp", &(&1 > current_time))
+    # |> with_validation("iat", &(&1 <= current_time))
+    # |> with_validation("iss", &(&1 == config[:app_baseurl]))
   end
 
   @doc """
@@ -46,7 +46,7 @@ defmodule Tvthing.JWTHelpers do
   @doc """
   Return error message for `on_error`
   """
-  def error(conn, _msg) do
+  def error(conn, msg) do
     {conn, %{:errors => %{:detail => "unauthorized"}}}
   end
 

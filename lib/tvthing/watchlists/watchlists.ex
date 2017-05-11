@@ -5,18 +5,33 @@ defmodule Tvthing.Watchlists do
   alias Tvthing.Shows.Show
   alias Tvthing.Watchlists.Watchlist
   alias Tvthing.Watchlists.WatchlistShow
+  alias Tvthing.Watchlists.UserWatchlists
   @show_active 1
   @show_snoozed 2
   @show_archived 3
 
-  # will eventually filter by user
-  def get_all() do
-    Repo.all(Watchlist)
+  def get_or_add(user_id) do
+    query = from uw in UserWatchlists,
+      join: w in Watchlist, where: w.id == uw.watchlist_id,
+      where: uw.user_id == ^user_id,
+      select: %{id: w.id}
+    case Repo.one(query) do
+      nil -> add(user_id)
+      watchlist -> watchlist
+    end
   end
 
-  def add(params) do
-    Watchlist.changeset(%Watchlist{}, params)
-      |> Repo.insert
+  def add(user_id, name \\ "default") do
+    watchlist = Watchlist.changeset(%Watchlist{}, %{name: name})
+    |> Repo.insert!
+
+    UserWatchlists.changeset(%UserWatchlists{}, %{user_id: user_id, watchlist_id: watchlist.id})
+    |> Repo.insert!
+  end
+
+  def get_shows_by_user(user_id) do
+    %{watchlist_id: watchlist_id} = Repo.get_by!(UserWatchlists, user_id: user_id)
+    get_shows(watchlist_id)
   end
 
   def get_shows(id) do

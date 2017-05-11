@@ -1,11 +1,13 @@
-defmodule Tvthing.User do
+defmodule Tvthing.Users.User do
   use Tvthing.Web, :model
 
+  @derive {Poison.Encoder, only: [:id, :email]}
   schema "users" do
     field :email, :string
     field :google_id, :string
 
-    many_to_many :watchlists, Tvthing.Watchlist, join_through: Tvthing.UserWatchlists
+    many_to_many :watchlists, Tvthing.Watchlists.Watchlist, 
+      join_through: Tvthing.Watchlists.UserWatchlists
     timestamps()
   end
 
