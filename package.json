@@ -6,7 +6,8 @@
     "watch": "webpack --watch-stdin --progress --color",
     "format": "prettier --write --single-quote --jsx-bracket-same-line --parser flow \"web/static/js/**/*.js{x,}\"",
     "lint": "eslint --ext js,jsx web/static/js",
-    "precommit": "yarn format && yarn lint"
+    "flow": "flow status",
+    "precommit": "yarn format && yarn lint && yarn flow"
   },
   "dependencies": {
     "auth0-js": "^8.6.0",

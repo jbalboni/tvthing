@@ -8,6 +8,8 @@ import Nav from './Nav';
 
 import { getUserInfo } from '../lib/auth';
 
+import type { Watchlist, User } from '../lib/types';
+
 type Props = {
   accessToken: ?string,
   idToken: ?string
@@ -54,15 +56,12 @@ export default class App extends preact.Component {
   }
   render() {
     const { user, accessToken, idToken } = this.state;
+    const isLoggedIn = this.state.user !== null;
     return (
       <div>
-        <Nav accessToken={accessToken} user={user} />
+        <Nav accessToken={accessToken} isLoggedIn={isLoggedIn} />
         <Router>
-          <Main
-            path="/"
-            isLoggedIn={this.state.user !== null}
-            idToken={idToken}
-          />
+          <Main path="/" isLoggedIn={isLoggedIn} idToken={idToken} />
           <Login
             path="/login"
             setUserInfo={(...args) => this.setUserInfo(...args)}

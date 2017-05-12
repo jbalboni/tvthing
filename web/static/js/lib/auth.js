@@ -13,6 +13,10 @@ export function login() {
   webAuth.authorize();
 }
 
+export function logout() {
+  webAuth.logout();
+}
+
 export function addUser(hash: string) {
   return new Promise((resolve, reject) => {
     webAuth.parseHash(hash, (err, authResult) => {
@@ -66,5 +70,17 @@ export function getUserInfo(idToken: string) {
       return response.json();
     }
     return Promise.reject(response.statusText);
+  });
+}
+
+export function getPicture(accessToken: string): Promise<string> {
+  return new Promise((resolve, reject) => {
+    webAuth.client.userInfo(accessToken, (err, user) => {
+      if (!err) {
+        resolve(user.picture);
+      } else {
+        reject(err);
+      }
+    });
   });
 }
