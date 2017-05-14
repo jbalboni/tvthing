@@ -5,6 +5,7 @@ import Router, { route } from 'preact-router';
 import Main from './Main';
 import Login from './Login';
 import Nav from './Nav';
+import Search from './Search';
 
 import { getUserInfo } from '../lib/auth';
 
@@ -60,6 +61,7 @@ export default class App extends preact.Component {
     return (
       <div>
         <Nav accessToken={accessToken} isLoggedIn={isLoggedIn} />
+        <Search />
         <Router>
           <Main path="/" isLoggedIn={isLoggedIn} idToken={idToken} />
           <Login

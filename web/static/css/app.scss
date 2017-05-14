@@ -38,3 +38,27 @@ a.nav-item {
   border-radius: 50%;
   height: 30px;
 }
+
+.search__container {
+  margin: 1rem 1rem;
+  @include desktop {
+    margin: auto;
+    margin-top: 1rem;
+  }
+}
+
+.search__field-container {
+  display: flex;
+  justify-content: center;
+}
+
+.search__field {
+  margin-bottom: 1rem;
+  max-width: 50rem;
+  flex-grow: 1;
+}
+
+.search__results {
+  max-width: 50rem;
+  margin: auto;
+}

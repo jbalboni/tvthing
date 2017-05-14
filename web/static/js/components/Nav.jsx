@@ -65,7 +65,8 @@ export default class Nav extends preact.Component {
               </button>}
             {isLoggedIn &&
               <span class="nav-item">
-                {picture != null && <img class="profile__img" src={picture} alt="Profile" />}
+                {picture != null &&
+                  <img class="profile__img" src={picture} alt="Profile" />}
                 <button class="button is-link nav__auth-link" onClick={logout}>
                   Sign out
                 </button>

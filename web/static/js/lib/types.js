@@ -14,3 +14,9 @@ export type Show = {
   id: number,
   name: string
 };
+
+export type Result = {
+  title: string,
+  id: number,
+  artwork_208x117: string
+};
