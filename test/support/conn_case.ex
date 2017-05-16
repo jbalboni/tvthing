@@ -1,4 +1,4 @@
-defmodule Tvthing.ConnCase do
+defmodule Tvthing.Web.ConnCase do
   @moduledoc """
   This module defines the test case to be used by
   tests that require setting up a connection.
@@ -25,10 +25,10 @@ defmodule Tvthing.ConnCase do
       import Ecto.Changeset
       import Ecto.Query
 
-      import Tvthing.Router.Helpers
+      import Tvthing.Web.Router.Helpers
 
       # The default endpoint for testing
-      @endpoint Tvthing.Endpoint
+      @endpoint Tvthing.Web.Endpoint
     end
   end
 

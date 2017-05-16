@@ -1,4 +1,4 @@
-defmodule Tvthing.ChannelCase do
+defmodule Tvthing.Web.ChannelCase do
   @moduledoc """
   This module defines the test case to be used by
   channel tests.
@@ -27,7 +27,7 @@ defmodule Tvthing.ChannelCase do
 
 
       # The default endpoint for testing
-      @endpoint Tvthing.Endpoint
+      @endpoint Tvthing.Web.Endpoint
     end
   end
 
