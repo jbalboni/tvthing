@@ -3,7 +3,7 @@ import preact from 'preact';
 import classNames from 'classnames';
 import { searchShows } from '../lib/actions';
 import SearchResults from './SearchResults';
-import type { Result } from '../lib/types';
+import type { Result, ListState } from '../lib/types';
 
 type State = {
   term: string,
@@ -13,6 +13,9 @@ type State = {
 
 export default class Search extends preact.Component {
   state: State;
+  props: {
+    addShow: (showId: number, state: ListState, source: ?string) => Promise<any>
+  };
   constructor() {
     super();
     this.state = {
@@ -56,7 +59,7 @@ export default class Search extends preact.Component {
             </div>
           </div>
         </div>
-        <SearchResults results={this.state.list} />
+        <SearchResults results={this.state.list} addShow={this.props.addShow} />
       </div>
     );
   }

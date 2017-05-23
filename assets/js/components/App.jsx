@@ -9,7 +9,9 @@ import Search from './Search';
 
 import { getUserInfo } from '../lib/auth';
 
-import type { Watchlist, User } from '../lib/types';
+import type { Watchlist, User, ListState } from '../lib/types';
+
+import { addShow } from '../lib/actions';
 
 type Props = {
   accessToken: ?string,
@@ -55,15 +57,23 @@ export default class App extends preact.Component {
   ) {
     this.setState({ user, watchlist, accessToken, idToken }, () => route('/'));
   }
+  addShow(showId : number, state: ListState, source: ?string): Promise<any> {
+    const { watchlist, idToken } = this.state;
+    if (watchlist && idToken) {
+      return addShow(idToken, watchlist.id, showId, state, source);
+    }
+
+    return Promise.reject();
+  }
   render() {
-    const { user, accessToken, idToken } = this.state;
+    const { user, accessToken, idToken, watchlist } = this.state;
     const isLoggedIn = this.state.user !== null;
     return (
       <div>
         <Nav accessToken={accessToken} isLoggedIn={isLoggedIn} />
-        <Search />
+        <Search addShow={(showId, state, source) => this.addShow(showId, state, source)} />
         <Router>
-          <Main path="/" isLoggedIn={isLoggedIn} idToken={idToken} />
+          <Main path="/" watchlist={watchlist} isLoggedIn={isLoggedIn} idToken={idToken} />
           <Login
             path="/login"
             setUserInfo={(...args) => this.setUserInfo(...args)}

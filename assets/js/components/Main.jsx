@@ -2,11 +2,12 @@
 import preact from 'preact';
 
 import { fetchShows } from '../lib/actions';
-import type { Show } from '../lib/types';
+import type { Show, Watchlist } from '../lib/types';
 
 type Props = {
   isLoggedIn: boolean,
-  idToken: ?string
+  idToken: ?string,
+  watchlist: ?Watchlist
 };
 
 export default class Main extends preact.Component {
@@ -21,15 +22,16 @@ export default class Main extends preact.Component {
   };
   props: Props;
   componentDidMount() {
-    if (this.props.isLoggedIn && this.props.idToken) {
-      fetchShows(this.props.idToken).then(shows => {
+    const { isLoggedIn, idToken, watchlist } = this.props;
+    if (isLoggedIn && idToken && watchlist) {
+      fetchShows(watchlist.id, idToken).then(shows => {
         this.setState({ shows });
       });
     }
   }
-  componentWillReceiveProps({ isLoggedIn, idToken }: Props) {
-    if (!this.props.isLoggedIn && isLoggedIn && idToken) {
-      fetchShows(idToken).then(shows => {
+  componentWillReceiveProps({ watchlist, isLoggedIn, idToken }: Props) {
+    if (!this.props.isLoggedIn && isLoggedIn && idToken && watchlist) {
+      fetchShows(watchlist.id, idToken).then(shows => {
         this.setState({ shows });
       });
     }

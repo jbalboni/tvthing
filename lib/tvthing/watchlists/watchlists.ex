@@ -9,6 +9,7 @@ defmodule Tvthing.Watchlists do
   @show_active 1
   @show_snoozed 2
   @show_archived 3
+  @show_want_to_watch 4
 
   def get_or_add(user_id) do
     query = from uw in UserWatchlists,
@@ -29,12 +30,12 @@ defmodule Tvthing.Watchlists do
     |> Repo.insert!
   end
 
-  def get_shows_by_user(user_id) do
-    %{watchlist_id: watchlist_id} = Repo.get_by!(UserWatchlists, user_id: user_id)
-    get_shows(watchlist_id)
+  def get_shows_by_watchlist(id, user_id) do
+    {:ok, _} = Repo.get_by(UserWatchlists, watchlist_id: id, user_id: user_id)
+    get_shows(id)
   end
 
-  def get_shows(id) do
+  defp get_shows(id) do
     query = from ws in WatchlistShow,
       join: s in Show, where: s.id == ws.show_id,
       where: ws.watchlist_id == ^id,
@@ -42,12 +43,14 @@ defmodule Tvthing.Watchlists do
     Repo.all(query)
   end
 
-  def add_show(watchlist_id, guidebox_id) do
+  def add_show(watchlist_id, guidebox_id, state, source) do
     show = Shows.get_or_add(guidebox_id)
 
     %WatchlistShow{
       watchlist_id: String.to_integer(watchlist_id),
-      show_id: show.id
+      show_id: show.id,
+      state: state,
+      source: source
     }
       |> WatchlistShow.changeset
       |> Repo.insert

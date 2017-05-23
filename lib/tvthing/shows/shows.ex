@@ -19,5 +19,21 @@ defmodule Tvthing.Shows do
         show
     end 
   end
+
+  defp get_source_list(%{"android" => android, "ios" => ios, "web" => web}) do
+    [android, ios, web]
+    |> Enum.map(&(&1["episodes"]["all_sources"]))
+    |> Enum.concat
+    |> Enum.map(&(%{source: &1["source"], display_name: &1["display_name"]}))
+    |> Enum.sort
+    |> Enum.dedup
+  end
+
+  def get_sources(id) do
+    case Guidebox.get("shows/#{id}/available_content") do
+      {:ok, results} -> get_source_list(results.body["results"])
+      {:errors, error} -> {:error, error.reason}
+    end
+  end
 end
 

@@ -60,9 +60,11 @@ export default class Nav extends preact.Component {
           </span>
           <div class="nav-right nav-menu">
             {!isLoggedIn &&
-              <button class="button is-link nav-item" onClick={login}>
-                Sign in
-              </button>}
+              <span class="nav-item">
+                <button class="button is-link nav__auth-link" onClick={login}>
+                  Sign in
+                </button>
+              </span>}
             {isLoggedIn &&
               <span class="nav-item">
                 {picture != null &&

@@ -1,12 +1,8 @@
-defmodule Tvthing.Web.ErrorView do
+defmodule Tvthing.Web.JsonView do
   use Tvthing.Web, :view
 
-  def render("404.json", _assigns) do
-    %{error: "Page not found"}
-  end
-
-  def render("500.json", %{message: message}) do
-    %{error: message}
+  def render("index.json", %{payload: payload}) do
+    payload
   end
 
   def render("changeset.json", %{errors: errors}) do

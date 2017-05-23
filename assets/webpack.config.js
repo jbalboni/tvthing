@@ -9,11 +9,11 @@ module.exports = {
   entry: './js/index.jsx',
   output: {
     filename: 'app.js',
-    path: path.resolve(__dirname, 'priv/static/js')
+    path: path.resolve(__dirname, '../priv/static/js')
   },
   devServer: {
     compress: true,
-    contentBase: path.resolve(__dirname, 'priv/static')
+    contentBase: path.resolve(__dirname, '../priv/static')
   },
   module: {
     rules: [

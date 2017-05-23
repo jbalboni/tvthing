@@ -4,8 +4,8 @@
   "scripts": {
     "minify": "babili -d priv/static/js priv/static/js",
     "watch": "webpack --watch-stdin --progress --color",
-    "format": "prettier --write --single-quote --jsx-bracket-same-line --parser flow \"web/static/js/**/*.js{x,}\"",
-    "lint": "eslint --ext js,jsx web/static/js",
+    "format": "prettier --write --single-quote --jsx-bracket-same-line --parser flow \"js/**/*.js{x,}\"",
+    "lint": "eslint --ext js,jsx js",
     "flow": "flow status",
     "precommit": "yarn format && yarn lint && yarn flow"
   },

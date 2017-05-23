@@ -20,3 +20,10 @@ export type Result = {
   id: number,
   artwork_208x117: string
 };
+
+export type Source = {
+  display_name: number,
+  source: string
+};
+
+export type ListState = 1 | 2 | 3 | 4;

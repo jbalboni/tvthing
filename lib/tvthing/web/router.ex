@@ -26,6 +26,7 @@ defmodule Tvthing.Web.Router do
 
     get "/search", SearchController, :index
     post "/users", UserController, :create
+    get "/shows/:id", ShowController, :index
   end
 
   scope "/api", Tvthing.Web do
@@ -33,8 +34,8 @@ defmodule Tvthing.Web.Router do
 
     get "/watchlists", WatchlistController, :index
     post "/watchlists", WatchlistController, :create
-    get "/shows", WatchlistShowsController, :index
-    post "/shows", WatchlistShowsController, :add
+    get "/watchlists/:id/shows", WatchlistShowsController, :index
+    post "/watchlists/:id/shows", WatchlistShowsController, :add
     # post "/watchlists/:id/reorder", WatchlistShowsController, :reorder
     post "/shows/:show_id/snooze", WatchlistShowsController, :snooze
     post "/shows/:show_id/activate", WatchlistController, :activate
