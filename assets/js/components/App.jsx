@@ -57,7 +57,7 @@ export default class App extends preact.Component {
   ) {
     this.setState({ user, watchlist, accessToken, idToken }, () => route('/'));
   }
-  addShow(showId : number, state: ListState, source: ?string): Promise<any> {
+  addShow(showId: number, state: ListState, source: ?string): Promise<any> {
     const { watchlist, idToken } = this.state;
     if (watchlist && idToken) {
       return addShow(idToken, watchlist.id, showId, state, source);
@@ -71,9 +71,17 @@ export default class App extends preact.Component {
     return (
       <div>
         <Nav accessToken={accessToken} isLoggedIn={isLoggedIn} />
-        <Search addShow={(showId, state, source) => this.addShow(showId, state, source)} />
+        <Search
+          addShow={(showId, state, source) =>
+            this.addShow(showId, state, source)}
+        />
         <Router>
-          <Main path="/" watchlist={watchlist} isLoggedIn={isLoggedIn} idToken={idToken} />
+          <Main
+            path="/"
+            watchlist={watchlist}
+            isLoggedIn={isLoggedIn}
+            idToken={idToken}
+          />
           <Login
             path="/login"
             setUserInfo={(...args) => this.setUserInfo(...args)}

@@ -31,8 +31,10 @@ defmodule Tvthing.Watchlists do
   end
 
   def get_shows_by_watchlist(id, user_id) do
-    {:ok, _} = Repo.get_by(UserWatchlists, watchlist_id: id, user_id: user_id)
-    get_shows(id)
+    case Repo.get_by(UserWatchlists, watchlist_id: id, user_id: user_id) do
+      nil -> {:error, :unauthorized}
+      _ -> get_shows(id)
+    end
   end
 
   defp get_shows(id) do

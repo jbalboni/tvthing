@@ -14,7 +14,7 @@ config :tvthing,
 config :tvthing, Tvthing.Web.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "vEt7a1gQeX9NNyItL6LD8XtVYv8w6o3Rr0yUsf7BNi4m2i9FzWaaYzGdi8hSh8w5",
-  render_errors: [view: Tvthing.Web.ErrorView, accepts: ~w(html json)],
+  render_errors: [view: Tvthing.Web.ErrorView, accepts: ~w(json)],
   pubsub: [name: Tvthing.PubSub,
            adapter: Phoenix.PubSub.PG2]
 

@@ -1,11 +1,15 @@
 // @flow
 import type { Source, Show, Result, ListState } from './types';
 
-export function fetchShows(watchlistId : number, idToken: string): Promise<Array<Show>> {
+export function fetchShows(
+  watchlistId: number,
+  idToken: string
+): Promise<Array<Show>> {
   return fetch(`/api/watchlists/${watchlistId}/shows`, {
     withCredentials: true,
     headers: {
-      Authorization: `Bearer ${idToken}`
+      Authorization: `Bearer ${idToken}`,
+      'Content-Type': 'application/json'
     }
   }).then(resp => {
     if (resp.ok) {
