@@ -1,6 +1,7 @@
 // @flow
 import preact from 'preact';
 
+import ShowCard from './ShowCard';
 import { fetchShows } from '../lib/actions';
 import type { Show, Watchlist } from '../lib/types';
 
@@ -38,16 +39,12 @@ export default class Main extends preact.Component {
   }
   render() {
     return (
-      <div>
-        {this.state.shows.map(show => (
-          <div class="card">
-            <header class="card-header">
-              <p class="card-header-title">
-                {show.name}
-              </p>
-            </header>
-          </div>
-        ))}
+      <div class="container main__container">
+        <ul class="columns is-multiline">
+          {this.state.shows.map(show => (
+            <li class="column is-one-third"><ShowCard show={show}/></li>
+          ))}
+        </ul>
       </div>
     );
   }

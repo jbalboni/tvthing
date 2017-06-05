@@ -39,7 +39,7 @@ a.nav-item {
   height: 30px;
 }
 
-.search__container {
+.search__container, .main__container {
   margin: 1rem 1rem;
   @include desktop {
     margin: auto;

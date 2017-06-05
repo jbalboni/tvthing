@@ -8,7 +8,8 @@ import type { Result, ListState } from '../lib/types';
 type State = {
   term: string,
   list: Array<Result>,
-  loading: boolean
+  loading: boolean,
+  showResults: boolean
 };
 
 export default class Search extends preact.Component {
@@ -21,17 +22,21 @@ export default class Search extends preact.Component {
     this.state = {
       term: '',
       list: [],
-      loading: false
+      loading: false,
+      showResults: false
     };
   }
   search() {
     this.setState({ loading: true });
     searchShows(this.state.term).then(list => {
-      this.setState({ list, loading: false });
+      this.setState({ list, loading: false, showResults: true });
     });
   }
   updateTerm(term: string) {
     this.setState({ term });
+  }
+  clearSearch() {
+    this.setState({ list: [], term: '', showResults: false })
   }
   render() {
     const buttonClasses = classNames('button', 'is-info', 'is-medium', {
@@ -59,7 +64,8 @@ export default class Search extends preact.Component {
             </div>
           </div>
         </div>
-        <SearchResults results={this.state.list} addShow={this.props.addShow} />
+        {this.state.showResults &&
+            <SearchResults results={this.state.list} clearSearch={() => this.clearSearch()} addShow={this.props.addShow} />}
       </div>
     );
   }

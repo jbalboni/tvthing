@@ -13,8 +13,14 @@ defmodule Tvthing.Shows do
       %Show{} = show -> 
         show  
       nil -> 
-        %{"title" => title} = Guidebox.get!("shows/#{guidebox_id}").body
-        changeset = Show.changeset(%Show{guidebox_id: guidebox_id, name: title})
+        %{"title" => title,
+          "artwork_208x117" => artwork_208x117,
+          "artwork_448x252" => artwork_448x252} = Guidebox.get!("shows/#{guidebox_id}").body
+        changeset = Show.changeset(%Show{
+                                     guidebox_id: guidebox_id, 
+                                     title: title,
+                                     artwork_208x117: artwork_208x117,
+                                     artwork_448x252: artwork_448x252})
         {:ok, show} = Repo.insert(changeset)
         show
     end 

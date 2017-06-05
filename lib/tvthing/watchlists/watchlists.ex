@@ -41,7 +41,7 @@ defmodule Tvthing.Watchlists do
     query = from ws in WatchlistShow,
       join: s in Show, where: s.id == ws.show_id,
       where: ws.watchlist_id == ^id,
-      select: %{show_id: ws.show_id, name: s.name}
+      select: s
     Repo.all(query)
   end
 
