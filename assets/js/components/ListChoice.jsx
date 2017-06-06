@@ -41,4 +41,3 @@ export default function ListChoice({ hideMenu, getSources }: Props) {
     </div>
   );
 }
-

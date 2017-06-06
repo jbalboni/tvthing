@@ -1,4 +1,5 @@
 defmodule Tvthing.Shows do
+  import Ecto.Query, only: [from: 2]
   alias Tvthing.Repo
   alias Tvthing.Guidebox
   alias Tvthing.Shows.Show
@@ -40,6 +41,28 @@ defmodule Tvthing.Shows do
       {:ok, results} -> get_source_list(results.body["results"])
       {:errors, error} -> {:error, error.reason}
     end
+  end
+
+  def update_shows do
+    Repo.all(
+      from s in Show,
+      select: s
+    )
+    |> Enum.map(
+      fn show ->
+        new_data = Guidebox.get!("shows/#{show.guidebox_id}").body
+        %{new_data: new_data, show: show}
+      end
+    ) 
+    |> Enum.each(
+      fn %{new_data: new_data, show: show} -> 
+        Ecto.Changeset.change(show, 
+          title: new_data["title"], 
+          artwork_208x117: new_data["artwork_208x117"],
+          artwork_448x252: new_data["artwork_448x252"])
+          |> Repo.update
+      end
+    )
   end
 end
 

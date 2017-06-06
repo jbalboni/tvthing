@@ -36,7 +36,7 @@ export default class Search extends preact.Component {
     this.setState({ term });
   }
   clearSearch() {
-    this.setState({ list: [], term: '', showResults: false })
+    this.setState({ list: [], term: '', showResults: false });
   }
   render() {
     const buttonClasses = classNames('button', 'is-info', 'is-medium', {
@@ -52,6 +52,7 @@ export default class Search extends preact.Component {
                   class="input is-medium"
                   type="text"
                   placeholder="Find a show"
+                  value={this.state.term}
                   onKeyUp={({ key }) => key === 'Enter' ? this.search() : null}
                   onChange={e => this.updateTerm(e.target.value)}
                 />
@@ -65,7 +66,11 @@ export default class Search extends preact.Component {
           </div>
         </div>
         {this.state.showResults &&
-            <SearchResults results={this.state.list} clearSearch={() => this.clearSearch()} addShow={this.props.addShow} />}
+          <SearchResults
+            results={this.state.list}
+            clearSearch={() => this.clearSearch()}
+            addShow={this.props.addShow}
+          />}
       </div>
     );
   }

@@ -1,10 +1,10 @@
 // @flow
-import type { Source, Show, Result, ListState } from './types';
+import type { Source, WatchlistShow, Result, ListState } from './types';
 
 export function fetchShows(
   watchlistId: number,
   idToken: string
-): Promise<Array<Show>> {
+): Promise<Array<WatchlistShow>> {
   return fetch(`/api/watchlists/${watchlistId}/shows`, {
     withCredentials: true,
     headers: {

@@ -5,12 +5,14 @@ import ResultCard from './ResultCard';
 import type { Result } from '../lib/types';
 
 type Props = {
-  results: Array<Result>, 
+  results: Array<Result>,
   addShow: Function,
   clearSearch: () => any
-}
+};
 
-export default function SearchResults( { results, addShow, clearSearch }: Props ) {
+export default function SearchResults(
+  { results, addShow, clearSearch }: Props
+) {
   return (
     <div>
       <div class="level">
@@ -33,7 +35,7 @@ export default function SearchResults( { results, addShow, clearSearch }: Props 
           </li>
         ))}
       </ul>
-      <hr/>
+      <hr />
     </div>
   );
 }

@@ -13,7 +13,7 @@ defmodule Tvthing do
       # Start the endpoint when the application starts
       supervisor(Tvthing.Web.Endpoint, []),
       # Start your own worker by calling: Tvthing.Worker.start_link(arg1, arg2, arg3)
-      # worker(Tvthing.Worker, [arg1, arg2, arg3]),
+      worker(Tvthing.ScheduledTask, []),
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html

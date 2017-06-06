@@ -28,3 +28,10 @@ export type Source = {
 };
 
 export type ListState = 1 | 2 | 3 | 4;
+
+export type WatchlistShow = {
+  show_id: number,
+  source: string,
+  state: ListState,
+  show: Show
+};

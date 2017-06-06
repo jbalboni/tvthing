@@ -38,11 +38,11 @@ defmodule Tvthing.Watchlists do
   end
 
   defp get_shows(id) do
-    query = from ws in WatchlistShow,
-      join: s in Show, where: s.id == ws.show_id,
+    Repo.all(
+      from ws in WatchlistShow,
       where: ws.watchlist_id == ^id,
-      select: s
-    Repo.all(query)
+      preload: [:show]
+    )
   end
 
   def add_show(watchlist_id, guidebox_id, state, source) do

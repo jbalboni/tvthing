@@ -3,7 +3,7 @@ import preact from 'preact';
 
 import ShowCard from './ShowCard';
 import { fetchShows } from '../lib/actions';
-import type { Show, Watchlist } from '../lib/types';
+import type { Show, Watchlist, WatchlistShow } from '../lib/types';
 
 type Props = {
   isLoggedIn: boolean,
@@ -19,7 +19,7 @@ export default class Main extends preact.Component {
     };
   }
   state: {
-    shows: Array<Show>
+    shows: Array<WatchlistShow>
   };
   props: Props;
   componentDidMount() {
@@ -41,8 +41,8 @@ export default class Main extends preact.Component {
     return (
       <div class="container main__container">
         <ul class="columns is-multiline">
-          {this.state.shows.map(show => (
-            <li class="column is-one-third"><ShowCard show={show}/></li>
+          {this.state.shows.map(result => (
+            <li class="column is-one-third"><ShowCard show={result.show} /></li>
           ))}
         </ul>
       </div>
