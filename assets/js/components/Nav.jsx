@@ -53,12 +53,7 @@ export default class Nav extends preact.Component {
               Snoozed
             </a>
           </div>
-          <span class="nav-toggle">
-            <span />
-            <span />
-            <span />
-          </span>
-          <div class="nav-right nav-menu">
+          <div class="nav-right">
             {!isLoggedIn &&
               <span class="nav-item">
                 <button class="button is-link nav__auth-link" onClick={login}>

@@ -13,12 +13,14 @@ export type Watchlist = {
 export type Show = {
   id: number,
   title: string,
+  artwork_448x252: string,
   artwork_208x117: string
 };
 
 export type Result = {
   title: string,
   id: number,
+  artwork_448x252: string,
   artwork_208x117: string
 };
 

@@ -42,7 +42,12 @@ export default class Main extends preact.Component {
       <div class="container main__container">
         <ul class="columns is-multiline">
           {this.state.shows.map(result => (
-            <li class="column is-one-third"><ShowCard show={result.show} /></li>
+            <li class="column is-one-third">
+              <ShowCard show={result.show}>
+                <h6 class="title is-6">Source</h6>
+                {result.source}
+              </ShowCard>
+            </li>
           ))}
         </ul>
       </div>

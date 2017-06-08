@@ -12,7 +12,7 @@ export default function ShowCard({ show, children }: Props) {
     <div class="card">
       <div class="card-image">
         <figure class="image is-16by9">
-          <img src={show.artwork_208x117} alt="Promotional art" />
+          <img src={show.artwork_448x252} alt="Promotional art" />
         </figure>
       </div>
       <div class="card-content">
