@@ -21,7 +21,7 @@ export function fetchShows(
 }
 
 export function searchShows(term: string): Promise<Array<Result>> {
-  return fetch(`/api/public/search?query=${term}`)
+  return fetch(`/api/public/search?query=${encodeURIComponent(term)}`)
     .then(resp => {
       if (resp.ok) {
         return resp.json();

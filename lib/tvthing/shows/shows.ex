@@ -5,7 +5,7 @@ defmodule Tvthing.Shows do
   alias Tvthing.Shows.Show
 
   def search(query) do
-    results = Guidebox.get! "search/?type=show&field=title&query=#{query}"
+    results = Guidebox.get! "search/?type=show&field=title&query=#{URI.encode(query)}"
     results.body
   end
 
