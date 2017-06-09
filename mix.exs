@@ -40,6 +40,7 @@ defmodule Tvthing.Mixfile do
      {:cowboy, "~> 1.0"},
      {:httpoison, "~> 0.10.0"},
      {:joken, "~> 1.1"},
+     {:mock, "~> 0.2.0", only: :test},
      {:guardian, "~> 0.14"}]
   end
 
